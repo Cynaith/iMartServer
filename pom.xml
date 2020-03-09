@@ -97,7 +97,15 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
             <version>2.1.2.RELEASE</version>
         </dependency>
+        <!--        lombok:注解生成Setter/Getter-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>

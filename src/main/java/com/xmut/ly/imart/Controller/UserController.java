@@ -36,4 +36,20 @@ public class UserController {
     }
 
 
+
+    @RequestMapping("info")
+    public ResponseWrapper UserInfo(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getUserInfo(userName));
+    }
+
+    @RequestMapping("follow")
+    public ResponseWrapper getFollow(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getFollow(userName));
+    }
+
+    @RequestMapping("followed")
+    public ResponseWrapper getFollowed(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getFollowed(userName));
+    }
+
 }
