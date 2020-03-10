@@ -5,12 +5,7 @@ spring:
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
   datasource:
-#    url: jdbc:mysql://47.101.171.252:3306/iMartServer
-#    username: root
-#    password: admin
-    url: jdbc:mysql://localhost:3306/imart
-    username: root
-    password: ly19980527
+
 #    hikari:
 #      minimum-idle: 3138
 #      maximum-pool-size: 10
