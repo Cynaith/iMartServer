@@ -8,10 +8,12 @@ import com.xmut.ly.imart.ResultVo.UserInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface UserMapping {
 
     @Select("select user_id from user where user_phone = #{userPhone}")
