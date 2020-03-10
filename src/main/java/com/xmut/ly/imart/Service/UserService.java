@@ -1,8 +1,7 @@
 package com.xmut.ly.imart.Service;
 
 import com.xmut.ly.imart.Domain.User;
-import com.xmut.ly.imart.ResultVo.FriendListVo;
-import com.xmut.ly.imart.ResultVo.UserInfoVo;
+import com.xmut.ly.imart.ResultVo.*;
 
 import java.util.List;
 
@@ -16,5 +15,8 @@ public interface UserService {
     UserInfoVo getUserInfo(String userName);
     List<FriendListVo> getFollow(String userName);
     List<FriendListVo> getFollowed(String userName);
+    List<ArticleListVo> getArticle(String userName);
+    MyshowVo getShow(String userName,String loginName);
+    List<Myshow1Vo> getMyshow1(String userName);
 
 }

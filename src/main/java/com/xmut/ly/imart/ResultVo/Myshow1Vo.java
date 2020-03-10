@@ -10,12 +10,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class FriendListVo {
-//    public int articleId;
-
-    public String imageUrl;
-
-    public String name;
-
-    public String content;
+public class Myshow1Vo {
+    int id;
+    String imageUrl;
 }

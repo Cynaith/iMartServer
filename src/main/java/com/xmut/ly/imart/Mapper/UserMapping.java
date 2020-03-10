@@ -1,7 +1,9 @@
 package com.xmut.ly.imart.Mapper;
 
 import com.xmut.ly.imart.Domain.User;
+import com.xmut.ly.imart.ResultVo.ArticleListVo;
 import com.xmut.ly.imart.ResultVo.FriendListVo;
+import com.xmut.ly.imart.ResultVo.Myshow1Vo;
 import com.xmut.ly.imart.ResultVo.UserInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -46,4 +48,19 @@ public interface UserMapping {
 
     @Select("select name,imgUrl as imageUrl,usershow from user where id = #{id}")
     FriendListVo getFriendList(@Param("id") int id);
+
+    @Select("select count(id) from follow where userId = #{loginId} and followId = #{userId}")
+    int isFollow(@Param("userId") int userid,@Param("loginId") int loginId);
+
+    @Select("select id as articleId,img1 as imageUrl,title as name,time as content from article where userId = #{id}")
+    List<ArticleListVo> getArticle(@Param("id") int id);
+
+    @Select("select img1 from article where userId = #{userId}")
+    String getArticleImg(@Param("userId") int userId);
+
+    @Select("select id from article where userId = #{userId}")
+    int getArticleidByUserid(@Param("userId") int userId);
+
+    @Select("select id ,img1 as imageUrl from article where userId = #{userId}")
+    List<Myshow1Vo> getMyshowVo1(@Param("userId") int userId);
 }

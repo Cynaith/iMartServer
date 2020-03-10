@@ -10,8 +10,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class FriendListVo {
-//    public int articleId;
+public class ArticleListVo {
+    public int articleId;
 
     public String imageUrl;
 

@@ -52,4 +52,21 @@ public class UserController {
         return ResponseWrapper.markSuccess(userService.getFollowed(userName));
     }
 
+    @RequestMapping("myshow")
+    //userName 主页人的名字
+    //user 登陆账户
+    public ResponseWrapper getShow(@RequestParam("userName") String userName,@RequestParam("loginName") String loginName){
+        return ResponseWrapper.markSuccess(userService.getShow(userName,loginName));
+    }
+
+    @RequestMapping("article")
+    public ResponseWrapper getArticle(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getArticle(userName));
+    }
+
+    @RequestMapping("myshow1")
+    public ResponseWrapper getMyshow1(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getMyshow1(userName));
+    }
+
 }

@@ -2,13 +2,11 @@ package com.xmut.ly.imart.Service.Impl;
 
 import com.xmut.ly.imart.Domain.User;
 import com.xmut.ly.imart.Mapper.UserMapping;
-import com.xmut.ly.imart.ResultVo.FriendListVo;
-import com.xmut.ly.imart.ResultVo.UserInfoVo;
+import com.xmut.ly.imart.ResultVo.*;
 import com.xmut.ly.imart.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +57,7 @@ public class UserServiceImpl implements UserService {
         followid = userMapping.getFollowId(id);
         if (followid.size()>0)
         for(int i = 0;i<followid.size();i++){
+//            System.out.println(userMapping.getFriendList(followid.get(i)));
             FriendListVo friendListVo =userMapping.getFriendList(followid.get(i));
             friendListVoList.add(friendListVo);
         }
@@ -73,9 +72,47 @@ public class UserServiceImpl implements UserService {
         followid = userMapping.getFollowedId(id);
         if (followid.size()>0)
             for(int i = 0;i<followid.size();i++){
+//                System.out.println(userMapping.getFriendList(followid.get(i)));
                 FriendListVo friendListVo =userMapping.getFriendList(followid.get(i));
                 friendListVoList.add(friendListVo);
             }
         return friendListVoList;
+    }
+
+    @Override
+    public List<ArticleListVo> getArticle(String userName) {
+        int id = userMapping.getIdByUsername(userName);
+        List<ArticleListVo> articleList = userMapping.getArticle(id);
+
+        return articleList;
+    }
+
+    @Override
+    public MyshowVo getShow(String userName,String loginName) {
+        int id = userMapping.getIdByUsername(userName);
+        int loginId = userMapping.getIdByUsername(loginName);
+        boolean isFollow;
+
+        //如果自己进自己的主页
+        if (id!=loginId){
+            isFollow = userMapping.isFollow(id,loginId)>0?true:false;
+        }
+        else isFollow =true ;
+        String userInfo = userMapping.getShow(userName);
+        String userimg = userMapping.getImg(id);
+        int followNum = userMapping.getFollowNum(id);
+        int followedNum = userMapping.getFollowedNum(id);
+        int articleNum = userMapping.getArticleNum(id);
+
+
+        MyshowVo myshowVo = new MyshowVo(userName,userInfo,userimg,followNum,followedNum,articleNum,isFollow);
+        return myshowVo;
+    }
+
+    @Override
+    public List<Myshow1Vo> getMyshow1(String userName) {
+        int userid = userMapping.getIdByUsername(userName);
+
+        return userMapping.getMyshowVo1(userid);
     }
 }
