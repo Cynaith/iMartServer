@@ -26,6 +26,8 @@ public interface UserMapping {
     @Select("select id from user where name = #{name}")
     int getIdByUsername(@Param("name") String name);
 
+    @Select("select name from user where id = #{id}")
+    String getUsernameById(@Param("id") int id);
 
     @Select("select usershow from user where name = #{name}")
     String getShow(@Param("name") String name);

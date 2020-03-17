@@ -1,5 +1,6 @@
 package com.xmut.ly.imart.Controller;
 
+import com.xmut.ly.imart.RequestVo.AddArticleVo;
 import com.xmut.ly.imart.Service.ArticleService;
 import com.xmut.ly.imart.Utils.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,16 @@ public class ArticleController {
     @RequestMapping("getAll")
     public ResponseWrapper getAllArticle(@RequestParam("kind") int kind){
         return ResponseWrapper.markSuccess(articleService.getSecondMain(kind));
+    }
+
+    @RequestMapping("add")
+    public ResponseWrapper addArticle(AddArticleVo addArticleVo){
+        return ResponseWrapper.markSuccess(articleService.addArticle(addArticleVo));
+    }
+
+    @RequestMapping("getById")
+    public ResponseWrapper getById(@RequestParam("id") int id){
+        return  ResponseWrapper.markSuccess(articleService.getById(id));
     }
 
 

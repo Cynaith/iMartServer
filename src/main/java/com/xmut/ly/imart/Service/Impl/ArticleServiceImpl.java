@@ -1,13 +1,19 @@
 package com.xmut.ly.imart.Service.Impl;
 
+import com.xmut.ly.imart.Domain.Article;
 import com.xmut.ly.imart.Mapper.ArticleMapping;
 import com.xmut.ly.imart.Mapper.UserMapping;
+import com.xmut.ly.imart.RequestVo.AddArticleVo;
+import com.xmut.ly.imart.ResultVo.ArticleMainVo;
 import com.xmut.ly.imart.ResultVo.SecondMainVo;
 import com.xmut.ly.imart.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * @USER: lynn
@@ -26,5 +32,33 @@ public class ArticleServiceImpl implements ArticleService {
 
         List<SecondMainVo> secondMainVoList = articleMapping.getSecondMain(kind);
         return secondMainVoList;
+    }
+
+    @Override
+    public boolean addArticle(AddArticleVo addArticleVo) {
+        int userId = userMapping.getIdByUsername(addArticleVo.getUsername());
+        String title = addArticleVo.getTitle();
+        String text = addArticleVo.getText();
+        int kind = addArticleVo.getKind();
+        Article article = new Article();
+        article.setUserId(userId);
+        article.setTitle(title);
+        article.setText(text);
+        article.setKind(kind);
+        article.setImg1("http://47.101.171.252:81/static/5696d2d5-221c-4ead-8a17-01b34de04c04.jpg");
+        article.setPrice(99.9);
+        Date date=new Date();
+        SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");
+        article.setTime(dateFormat.format(date));
+        return articleMapping.addArticle(article);
+    }
+
+    @Override
+    public ArticleMainVo getById(int id) {
+        ArticleMainVo articleMainVo = articleMapping.getById(id);
+        articleMainVo.setUsername(userMapping.getUsernameById(articleMainVo.getUserId()));
+        articleMainVo.setUserInfo(userMapping.getShow(articleMainVo.getUsername()));
+        articleMainVo.setUserImg(userMapping.getImg(articleMainVo.getUserId()));
+        return articleMainVo;
     }
 }
