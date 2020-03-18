@@ -14,4 +14,5 @@ public interface ArticleService {
     List<SecondMainVo> getSecondMain(int kind);
     boolean addArticle(AddArticleVo addArticleVo);
     ArticleMainVo getById(int id);
+    void action(String username,int articleId,int kind);
 }

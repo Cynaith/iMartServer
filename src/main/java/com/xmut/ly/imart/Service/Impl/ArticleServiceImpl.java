@@ -62,4 +62,16 @@ public class ArticleServiceImpl implements ArticleService {
         articleMainVo.setUserImg(userMapping.getImg(articleMainVo.getUserId()));
         return articleMainVo;
     }
+
+    @Override
+    public void action(String username, int articleId, int kind) {
+        int userId = userMapping.getIdByUsername(username);
+        String userAddArticle = userId+"-"+articleId;
+        if (kind == 1) {        //点赞
+            articleMapping.support(userAddArticle, userId, articleId);
+        } else if (kind ==2){   //收藏
+            articleMapping.collection(userAddArticle, userId, articleId);
+        }
+
+    }
 }

@@ -35,5 +35,11 @@ public class ArticleController {
         return  ResponseWrapper.markSuccess(articleService.getById(id));
     }
 
+    @RequestMapping("action")
+    public ResponseWrapper action(@RequestParam("username") String username,@RequestParam("articleId") int articleId,@RequestParam("kind") int kind){
+        articleService.action(username, articleId, kind);
+        return ResponseWrapper.markSuccessButNoData();
+    }
+
 
 }
