@@ -40,12 +40,13 @@ public class ArticleServiceImpl implements ArticleService {
         String title = addArticleVo.getTitle();
         String text = addArticleVo.getText();
         int kind = addArticleVo.getKind();
+        String img1 = addArticleVo.getImg1();
         Article article = new Article();
         article.setUserId(userId);
         article.setTitle(title);
         article.setText(text);
         article.setKind(kind);
-        article.setImg1("http://47.101.171.252:81/static/5696d2d5-221c-4ead-8a17-01b34de04c04.jpg");
+        article.setImg1(img1);
         article.setPrice(99.9);
         Date date=new Date();
         SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");

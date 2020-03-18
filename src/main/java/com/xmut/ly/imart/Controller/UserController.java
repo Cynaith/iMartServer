@@ -35,8 +35,6 @@ public class UserController {
 
     }
 
-
-
     @RequestMapping("info")
     public ResponseWrapper UserInfo(@RequestParam("userName") String userName){
         return ResponseWrapper.markSuccess(userService.getUserInfo(userName));

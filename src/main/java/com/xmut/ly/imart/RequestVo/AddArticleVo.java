@@ -17,4 +17,5 @@ public class AddArticleVo {
     String title;
     String text;
     int kind;
+    String img1;
 }
