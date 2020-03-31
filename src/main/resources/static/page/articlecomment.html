@@ -13,10 +13,28 @@
     <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 </head>
 <body>
+<div  style="margin-left: 20px;margin-top: 20px">
+    请输入检索条件(模糊查询):&nbsp;&nbsp;&nbsp;
+    <div class="layui-inline">
+        <input type="text" class="form-control" id="titleinput" placeholder="请输入标题">
+    </div>
+
+    <div class="layui-inline">
+        <input type="text" class="form-control" id="nameinput" placeholder="请输入评论人">
+    </div>
+    <div class="layui-inline">
+        <input type="text" class="form-control" id="textinput" placeholder="请输入评论内容">
+    </div>
+    <button class="btn btn-primary" id="search">搜索</button>
+</div>
 <table style="height: 90%" id="articlecomment" lay-filter="test">
 
 </table>
 <script src="../layui/layui.js"></script>
+<script type="text/html" id="switchstatus">
+    <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="冻结｜正常"
+           lay-filter="sexDemo" {{d.status=="1"?'checked':'冻结'}}>
+</script>
 <script>
     layui.use('table', function () {
         var table = layui.table;
@@ -26,18 +44,18 @@
             id:'articlecomment'
             ,elem: '#articlecomment'
             , height: 680
-            , url: 'http://localhost:8080/admin/getarticlecomment' //数据接口
+            , url: 'http://47.101.171.252:8080/admin/getarticlecomment' //数据接口
             //开发时更改为localhost
             , page: true //开启分页
             , limit: 15
             , limits: [15, 20, 30]
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
-                , {field: 'articletitle', title: '文章标题', width: 100}
-                , {field: 'commentusername', title: '评论人', width: 250}
-                , {field: 'text', title: '评论内容', width: 150, toolbar: '#text'}
+                , {field: 'articletitle', title: '文章标题', width: 300}
+                , {field: 'commentusername', title: '评论人', width: 100}
+                , {field: 'text', title: '评论内容', width: 450}
                 , {field: 'time', title: '评论时间', width: 150}
-                , {field: 'status', title: '评论状态', width: 150, templet: '#switchstatus', unresize: true}
+                , {field: 'status', title: '评论状态', width: 200, templet: '#switchstatus', unresize: true}
             ]]
             , parseData: function (res) { //res 即为原始返回的数据
                 return {
@@ -51,34 +69,26 @@
 
     })
 
-    $("#titlesearch").click(function () {
+    $("#search").click(function () {
         var title = $("#titleinput").val();
-        table = layui.table;
-        table.reload('articleinfo', {
-            url: "http://localhost:8080/admin/getarticleinfo"
-            , methods: "post"
-            , page: {
-                curr: 1 //重新从第 1 页开始
-            }
-            , where: {
-                'title': title
-            }
-        },'data')
-    })
-    $("#namesearch").click(function () {
         var name = $("#nameinput").val();
+        var text = $("#textinput").val();
         table = layui.table;
-        table.reload('articleinfo', {
-            url: "http://localhost:8080/admin/getarticleinfobyname"
+        table.reload('articlecomment', {
+            url: "http://47.101.171.252:8080/admin/getarticlecomment"
             , methods: "post"
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
             , where: {
-                'name': name
+                'name':name,
+                'title': title,
+                'text':text
             }
         },'data')
     })
+
+
 </script>
 </body>
 </html>

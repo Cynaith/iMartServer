@@ -38,7 +38,7 @@
             id: 'userinfo'
             , elem: '#userinfo'
             , height: 680
-            , url: 'http://localhost:8080/admin/getuserinfo' //数据接口
+            , url: 'http://47.101.171.252:8080/admin/getuserinfo' //数据接口
             //开发时更改为localhost
             , page: true //开启分页
             , limit: 15
@@ -65,7 +65,7 @@
             var name = $("#nameinput").val();
             table = layui.table;
             table.reload('userinfo', {
-                url: "http://localhost:8080/admin/getuserinfo"
+                url: "http://47.101.171.252:8080/admin/getuserinfo"
                 , methods: "post"
                 , page: {
                     curr: 1 //重新从第 1 页开始

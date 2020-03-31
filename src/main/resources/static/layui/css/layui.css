@@ -873,16 +873,6 @@ a cite {
     margin: 0 15px
 }
 
-.layui-layout-admin .layui-footer {
-    position: fixed;
-    left: 200px;
-    right: 0;
-    bottom: 0;
-    height: 0px;
-    line-height: 44px;
-    padding: 0 15px;
-    background-color: #eee
-}
 
 .layui-layout-admin .layui-logo {
     position: absolute;

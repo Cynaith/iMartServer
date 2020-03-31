@@ -14,17 +14,16 @@
 </head>
 <body>
 <div  style="margin-left: 20px;margin-top: 20px">
-    搜索标题：
-    <div class="layui-inline">
-        <input type="text" class="form-control" id="titleinput" placeholder="请输入标题">
-    </div>
-    <button class="btn btn-primary" id="titlesearch">搜索</button>
-
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜索用户：
+    请输入检索条件(模糊查询):&nbsp;&nbsp;&nbsp;
     <div class="layui-inline">
         <input type="text" class="form-control" id="nameinput" placeholder="请输入作者名">
     </div>
-    <button class="btn btn-primary" id="namesearch">搜索</button>
+
+    <div class="layui-inline">
+        <input type="text" class="form-control" id="titleinput" placeholder="请输入标题">
+
+    </div>
+    <button class="btn btn-primary" id="search">搜索</button>
 </div>
 <table style="height: 95%" id="userinfo" lay-filter="test">
 
@@ -46,7 +45,7 @@
             id:'articleinfo'
             ,elem: '#userinfo'
             , height: 680
-            , url: 'http://localhost:8080/admin/getarticleinfo' //数据接口
+            , url: 'http://47.101.171.252:8080/admin/getarticleinfo' //数据接口
             //开发时更改为localhost
             , page: true //开启分页
             , limit: 15
@@ -54,7 +53,7 @@
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
                 , {field: 'username', title: '作者', width: 100}
-                , {field: 'title', title: '标题', width: 250}
+                , {field: 'title', title: '标题', width: 300}
                 , {field: 'text', title: '内容', width: 150, toolbar: '#text'}
                 , {field: 'support', title: '点赞数', width: 150}
                 , {field: 'time', title: '创作时间', width: 200}
@@ -108,34 +107,23 @@
         // });
     })
 
-    $("#titlesearch").click(function () {
+    $("#search").click(function () {
         var title = $("#titleinput").val();
+        var name = $("#nameinput").val();
         table = layui.table;
         table.reload('articleinfo', {
-            url: "http://localhost:8080/admin/getarticleinfo"
+            url: "http://47.101.171.252:8080/admin/getarticleinfo"
             , methods: "post"
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
             , where: {
+                'name': name,
                 'title': title
             }
         },'data')
     })
-    $("#namesearch").click(function () {
-        var name = $("#nameinput").val();
-        table = layui.table;
-        table.reload('articleinfo', {
-            url: "http://localhost:8080/admin/getarticleinfobyname"
-            , methods: "post"
-            , page: {
-                curr: 1 //重新从第 1 页开始
-            }
-            , where: {
-                'name': name
-            }
-        },'data')
-    })
+
 </script>
 </body>
 <style>
