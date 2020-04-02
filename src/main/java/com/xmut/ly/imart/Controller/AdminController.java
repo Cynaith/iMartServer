@@ -6,15 +6,12 @@ import com.xmut.ly.imart.ResultVo.AdminUserVo;
 import com.xmut.ly.imart.Service.AdminService;
 import com.xmut.ly.imart.Utils.PageWrapperForLayui;
 import com.xmut.ly.imart.Utils.ResponseWrapper;
-import com.xmut.ly.imart.repository.ArticleRepository;
-import com.xmut.ly.imart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,53 +23,78 @@ import java.util.List;
 @RequestMapping("admin")
 public class AdminController {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    ArticleRepository articleRepository;
 
     @Autowired
     AdminService adminService;
 
-//    @RequestMapping("getuserinfo")
-//    public PageWrapperForLayui getUserInfo(@RequestParam(name = "page", defaultValue = "1") int page,
-//                                           @RequestParam(name = "limit", defaultValue = "10") int size) {
-//
-//        Pageable pageable = PageRequest.of(page - 1, size);
-//        return PageWrapperForLayui.markSuccess((int) userRepository.count(), userRepository.findAll(pageable));
-//    }
-//
-//    @RequestMapping("getarticleinfo")
-//    public PageWrapperForLayui getArticleInfo(@RequestParam(name = "page", defaultValue = "1") int page,
-//                                              @RequestParam(name = "limit", defaultValue = "10") int size) {
-//        Pageable pageable = PageRequest.of(page - 1, size);
-//        return PageWrapperForLayui.markSuccess((int) articleRepository.count(), articleRepository.findAll(pageable));
-//    }
+
 
     @RequestMapping("getuserinfo")
-    public PageWrapperForLayui getUserInfo(@RequestParam(value = "name",defaultValue = "") String name){
+    public PageWrapperForLayui getUserInfo(@RequestParam(value = "name", defaultValue = "") String name,
+                                           @RequestParam(value = "page", defaultValue = "1") int page,
+                                           @RequestParam(value = "limit", defaultValue = "10") int size) {
         List<AdminUserVo> adminUserVos = adminService.getUserInfo(name);
-        return PageWrapperForLayui.markSuccess(adminUserVos.size(),adminUserVos);
+        List<AdminUserVo> returnlist = new ArrayList<>();
+        final int[] i = {0};
+        adminUserVos.forEach(adminUserVo -> {
+            if (i[0] > (page - 1) * size - 1 && i[0] < page * size) {
+                returnlist.add(adminUserVo);
+            }
+            i[0]++;
+        });
+        return PageWrapperForLayui.markSuccess(adminUserVos.size(), returnlist);
     }
 
     @RequestMapping("getarticleinfo")
-    public PageWrapperForLayui getArticleInfo(@RequestParam(value = "title",defaultValue = "") String title){
-        List<AdminArticleVo> adminArticleVos = adminService.getArticleInfo(title);
-
-        return PageWrapperForLayui.markSuccess(adminArticleVos.size(),adminArticleVos);
+    public PageWrapperForLayui getArticleInfo(@RequestParam(value = "name", defaultValue = "") String name,
+                                              @RequestParam(value = "title", defaultValue = "") String title,
+                                              @RequestParam(value = "page", defaultValue = "1") int page,
+                                              @RequestParam(value = "limit", defaultValue = "10") int size) {
+        List<AdminArticleVo> adminArticleVos = adminService.getArticleInfo(title,name);
+        List<AdminArticleVo> returnlist = new ArrayList<>();
+        final int[] i = {0};
+        adminArticleVos.forEach(adminArticleVo -> {
+            if (i[0] > ((page - 1) * size - 1) && i[0] < (page * size)) {
+                returnlist.add(adminArticleVo);
+            }
+            i[0]++;
+        });
+        return PageWrapperForLayui.markSuccess(adminArticleVos.size(), returnlist);
     }
 
-    @RequestMapping("getarticleinfobyname")
-    public PageWrapperForLayui getarticleinfobyname(@RequestParam(value = "name",defaultValue = "") String name){
-        List<AdminArticleVo> adminArticleVos = adminService.getArticleByName(name);
-        return PageWrapperForLayui.markSuccess(adminArticleVos.size(),adminArticleVos);
-    }
+//    @RequestMapping("getarticleinfobyname")
+//    public PageWrapperForLayui getarticleinfobyname(@RequestParam(value = "name", defaultValue = "") String name,
+//                                                    @RequestParam(value = "page", defaultValue = "1") int page,
+//                                                    @RequestParam(value = "limit", defaultValue = "10") int size) {
+//        List<AdminArticleVo> adminArticleVos = adminService.getArticleByName(name);
+//        List<AdminArticleVo> returnlist = new ArrayList<>();
+//        final int[] i = {0};
+//        adminArticleVos.forEach(adminArticleVo -> {
+//            if (i[0] > ((page - 1) * size - 1) && i[0] < (page * size)) {
+//                returnlist.add(adminArticleVo);
+//            }
+//            i[0]++;
+//        });
+//        return PageWrapperForLayui.markSuccess(adminArticleVos.size(), returnlist);
+//    }
 
 
     @RequestMapping("getarticlecomment")
-    public PageWrapperForLayui getArticleComment(@RequestParam(value = "name",defaultValue = "") String username ){
-        List<AdminCommentVo> adminCommentVos = adminService.getCommentInfo(username);
-        return PageWrapperForLayui.markSuccess(adminCommentVos.size(),adminCommentVos);
+    public PageWrapperForLayui getArticleComment(@RequestParam(value = "title", defaultValue = "") String title,
+                                                 @RequestParam(value = "name", defaultValue = "") String username,
+                                                 @RequestParam(value = "text", defaultValue = "") String text,
+                                                 @RequestParam(value = "page", defaultValue = "1") int page,
+                                                 @RequestParam(value = "limit", defaultValue = "10") int size) {
+        List<AdminCommentVo> adminCommentVos = adminService.getCommentInfo(username, title,text);
+        List<AdminCommentVo> returnlist = new ArrayList<>();
+        final int[] i = {0};
+        adminCommentVos.forEach(adminComment -> {
+            if (i[0] > ((page - 1) * size - 1) && i[0] < (page * size)) {
+                returnlist.add(adminComment);
+            }
+            i[0]++;
+        });
+        return PageWrapperForLayui.markSuccess(adminCommentVos.size(), returnlist);
     }
 
 }

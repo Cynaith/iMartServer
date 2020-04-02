@@ -67,4 +67,13 @@ public class UserController {
         return ResponseWrapper.markSuccess(userService.getMyshow1(userName));
     }
 
+    @RequestMapping("myshow2")
+    public ResponseWrapper getMyshow2(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getMyshow2(userName));
+    }
+    @RequestMapping("myshow3")
+    public ResponseWrapper getMyshow3(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getMyshow3(userName));
+    }
+
 }
