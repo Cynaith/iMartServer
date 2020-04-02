@@ -32,39 +32,47 @@ public interface UserMapping {
     @Select("select usershow from user where name = #{name}")
     String getShow(@Param("name") String name);
 
-    @Select("select count(id) from follow where userid = #{userId}")
-    int getFollowNum(@Param("userId") int userId);
+    @Select("select count(id) from follow where userid = #{userid}")
+    int getFollowNum(@Param("userid") int userid);
 
-    @Select("select count(id) from follow where followId = #{userId}")
-    int getFollowedNum(@Param("userId") int userId);
+    @Select("select count(id) from follow where followId = #{userid}")
+    int getFollowedNum(@Param("userid") int userid);
 
-    @Select("select imgUrl from user where id = #{id}")
+    @Select("select imgurl from user where id = #{id}")
     String getImg(@Param("id") int id);
 
-    @Select("select count(id) from article where userId = #{userId}")
-    int getArticleNum(@Param("userId") int userId);
+    @Select("select count(id) from article where userid = #{userid}")
+    int getArticleNum(@Param("userid") int userid);
 
-    @Select("select followId from follow where userId = #{userId}")
-    List<Integer> getFollowId(@Param("userId") int userid);
+    @Select("select followId from follow where userid = #{userid}")
+    List<Integer> getFollowId(@Param("userid") int userid);
 
-    @Select("select userId from follow where followId = #{userId}")
-    List<Integer> getFollowedId(@Param("userId") int userid);
+    @Select("select userid from follow where followId = #{userid}")
+    List<Integer> getFollowedId(@Param("userid") int userid);
 
-    @Select("select name,imgUrl as imageUrl,usershow from user where id = #{id}")
+    @Select("select name,imgurl as imageUrl,usershow from user where id = #{id}")
     FriendListVo getFriendList(@Param("id") int id);
 
-    @Select("select count(id) from follow where userId = #{loginId} and followId = #{userId}")
-    int isFollow(@Param("userId") int userid,@Param("loginId") int loginId);
+    @Select("select count(id) from follow where userid = #{loginId} and followId = #{userid}")
+    int isFollow(@Param("userid") int userid,@Param("loginId") int loginId);
 
-    @Select("select id as articleId,img1 as imageUrl,title as name,time as content from article where userId = #{id}")
+    @Select("select id as articleId,img1 as imageUrl,title as name,time as content from article where userid = #{id}")
     List<ArticleListVo> getArticle(@Param("id") int id);
 
-    @Select("select img1 from article where userId = #{userId}")
-    String getArticleImg(@Param("userId") int userId);
+    @Select("select img1 from article where userid = #{userid}")
+    String getArticleImg(@Param("userid") int userid);
 
-    @Select("select id from article where userId = #{userId}")
-    int getArticleidByUserid(@Param("userId") int userId);
+    @Select("select id from article where userid = #{userid}")
+    int getArticleidByUserid(@Param("userid") int userid);
 
-    @Select("select id ,img1 as imageUrl from article where userId = #{userId}")
-    List<Myshow1Vo> getMyshowVo1(@Param("userId") int userId);
+    @Select("select id ,img1 as imageUrl from article where userid = #{userid}")
+    List<Myshow1Vo> getMyshowVo1(@Param("userid") int userid);
+
+    @Select("select am.articleId, a.img1 from articlemiddle as am left join article as a " +
+            "on (am.articleId = a.id) where am.userid = #{userid} and am.support = '1'")
+    List<Myshow1Vo> getMySupport(@Param("userid") int userid);
+
+    @Select("select am.articleId, a.img1 from articlemiddle as am left join article as a " +
+            "on (am.articleId = a.id) where am.userid = #{userid} and collection = '1'")
+    List<Myshow1Vo> getMyCollection(@Param("userid") int userid);
 }
