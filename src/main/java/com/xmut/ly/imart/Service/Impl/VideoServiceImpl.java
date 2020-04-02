@@ -29,7 +29,7 @@ public class VideoServiceImpl implements VideoService {
     public List<VideoListVo> getVideos(String username) {
         List<VideoListVo> videoListVos = videoMapping.getVideos();
         videoListVos.forEach(videoListVo -> {
-            String id = userMapping.getIdByUsername(videoListVo.getUsername())+"-"+videoListVo.getId();
+            String id = userMapping.getIdByUsername(username)+"-"+videoListVo.getId();
             try{
                 videoListVo.setIssupport(videoMapping.getSupportById(id) == 1);
             }catch (BindingException e){
