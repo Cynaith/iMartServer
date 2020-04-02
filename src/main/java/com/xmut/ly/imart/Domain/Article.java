@@ -7,7 +7,7 @@ import lombok.Data;
 public class Article {
 
   private long id;
-  private long userId;
+  private long userid;
   private String title;
   private String text;
   private int kind;

@@ -1,8 +1,10 @@
 package com.xmut.ly.imart.Domain;
 
+
+
 public class User {
 
-    int userId;
+    int userid;
     String userPhone;
     String userPassword;
     int userCode;
@@ -12,12 +14,12 @@ public class User {
     String userShow;
     int userStatus;
 
-    public int getUserId() {
-        return userId;
+    public int getUserid() {
+        return userid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public String getUserPhone() {
