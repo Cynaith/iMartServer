@@ -4,6 +4,7 @@ import com.xmut.ly.imart.Domain.User;
 import com.xmut.ly.imart.Service.UserService;
 import com.xmut.ly.imart.Utils.ResponseWrapper;
 import com.xmut.ly.imart.Utils.ReturnCode;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,5 +76,8 @@ public class UserController {
     public ResponseWrapper getMyshow3(@RequestParam("userName") String userName){
         return ResponseWrapper.markSuccess(userService.getMyshow3(userName));
     }
-
+    @RequestMapping("getUserimg")
+    public String getUserimg(@RequestParam(value = "username",defaultValue = "admin") String username){
+        return userService.getUserimg(username);
+    }
 }

@@ -75,4 +75,6 @@ public interface UserMapping {
     @Select("select am.articleId, a.img1 from articlemiddle as am left join article as a " +
             "on (am.articleId = a.id) where am.userid = #{userid} and collection = '1'")
     List<Myshow1Vo> getMyCollection(@Param("userid") int userid);
+
+
 }

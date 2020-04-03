@@ -18,5 +18,8 @@ public interface UserService {
     List<ArticleListVo> getArticle(String userName);
     MyshowVo getShow(String userName,String loginName);
     List<Myshow1Vo> getMyshow1(String userName);
+    List<Myshow1Vo> getMyshow2(String userName);
+    List<Myshow1Vo> getMyshow3(String userName);
+    String getUserimg(String username);
 
 }
