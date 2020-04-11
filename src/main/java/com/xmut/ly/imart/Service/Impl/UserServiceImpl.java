@@ -145,4 +145,16 @@ public class UserServiceImpl implements UserService {
         }
         return imgurl;
     }
+
+    @Override
+    public void followUser(String followName, String userName) {
+        int followid = userMapping.getIdByUsername(followName);
+        int userid = userMapping.getIdByUsername(userName);
+        int isFollowed = userMapping.checkFollow(userid,followid);
+        if (isFollowed != 0 ){
+            userMapping.replaceFollow(userid,followid);
+        }else {
+            userMapping.insertFollow(userid,followid);
+        }
+    }
 }

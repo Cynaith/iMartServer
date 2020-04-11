@@ -83,4 +83,10 @@ public class UserController {
     public String getUserimg(@RequestParam(value = "username",defaultValue = "admin") String username){
         return userService.getUserimg(username);
     }
+
+    @RequestMapping("followUser")
+    public void followUser(@RequestParam("followName") String followName,
+                           @RequestParam("userName") String userName){
+        userService.followUser(followName, userName);
+    }
 }
