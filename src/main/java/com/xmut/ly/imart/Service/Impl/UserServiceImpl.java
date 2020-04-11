@@ -45,7 +45,9 @@ public class UserServiceImpl implements UserService {
         int followedNum = userMapping.getFollowedNum(id);
         int articleNum = userMapping.getArticleNum(id);
         String imgUrl = userMapping.getImg(id);
-        UserInfoVo infoVo = new UserInfoVo(userName, show, followNum, followedNum, articleNum, imgUrl);
+        int supportNum = userMapping.totalArticleSupport(id);
+        supportNum+=userMapping.totalVideoSupport(id);
+        UserInfoVo infoVo = new UserInfoVo(userName, show, followNum, followedNum, articleNum, imgUrl,supportNum);
         return infoVo;
     }
 
@@ -84,6 +86,13 @@ public class UserServiceImpl implements UserService {
         int id = userMapping.getIdByUsername(userName);
         List<ArticleListVo> articleList = userMapping.getArticle(id);
 
+        return articleList;
+    }
+
+    @Override
+    public List<ArticleListVo> getCollection(String userName) {
+        int id = userMapping.getIdByUsername(userName);
+        List<ArticleListVo> articleList = userMapping.getCollection(id);
         return articleList;
     }
 

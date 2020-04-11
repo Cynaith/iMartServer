@@ -17,6 +17,6 @@ public class UserInfoVo {
     int followNum;
     int followedNum;
     int articleNum;
-    String imgUrl;
-//    int friendNum;
+    String imgurl ;
+    int supportNum;
 }

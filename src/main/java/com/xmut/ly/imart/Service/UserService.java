@@ -16,6 +16,8 @@ public interface UserService {
     List<FriendListVo> getFollow(String userName);
     List<FriendListVo> getFollowed(String userName);
     List<ArticleListVo> getArticle(String userName);
+    List<ArticleListVo> getCollection(String userName);
+
     MyshowVo getShow(String userName,String loginName);
     List<Myshow1Vo> getMyshow1(String userName);
     List<Myshow1Vo> getMyshow2(String userName);

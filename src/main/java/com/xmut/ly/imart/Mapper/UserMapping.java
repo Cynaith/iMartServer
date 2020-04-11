@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.Past;
 import java.util.List;
 
 @Mapper
@@ -59,6 +60,10 @@ public interface UserMapping {
     @Select("select id as articleId,img1 as imageUrl,title as name,time as content from article where userid = #{id}")
     List<ArticleListVo> getArticle(@Param("id") int id);
 
+    @Select("select a.id as articleId,a.img1 as imageUrl,a.title as name,a.time as content from article as a " +
+            "left join articlemiddle as am on(a.id = am.articleId and am.userId = #{id}) where collection = 1")
+    List<ArticleListVo> getCollection(@Param("id") int id);
+
     @Select("select img1 from article where userid = #{userid}")
     String getArticleImg(@Param("userid") int userid);
 
@@ -72,9 +77,14 @@ public interface UserMapping {
             "on (am.articleId = a.id) where am.userid = #{userid} and am.support = '1'")
     List<Myshow1Vo> getMySupport(@Param("userid") int userid);
 
+
     @Select("select am.articleId, a.img1 from articlemiddle as am left join article as a " +
             "on (am.articleId = a.id) where am.userid = #{userid} and collection = '1'")
     List<Myshow1Vo> getMyCollection(@Param("userid") int userid);
 
+    @Select("select count(am.id) from articlemiddle as am left join article as a on(am.articleId = a.id) where a.userid = #{userid} and am.support = 1")
+    int totalArticleSupport(@Param("userid") int userid);
 
+    @Select("select count(vm.id) from videomiddle as vm left join video as v on (vm.videoId = v.id) where v.userid = #{userid} and vm.support = 1")
+    int totalVideoSupport(@Param("userid") int userid);
 }

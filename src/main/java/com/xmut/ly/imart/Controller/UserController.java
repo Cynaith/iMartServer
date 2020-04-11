@@ -62,7 +62,10 @@ public class UserController {
     public ResponseWrapper getArticle(@RequestParam("userName") String userName){
         return ResponseWrapper.markSuccess(userService.getArticle(userName));
     }
-
+    @RequestMapping("collection")
+    public ResponseWrapper getCollection(@RequestParam("userName") String username){
+        return ResponseWrapper.markSuccess(userService.getCollection(username));
+    }
     @RequestMapping("myshow1")
     public ResponseWrapper getMyshow1(@RequestParam("userName") String userName){
         return ResponseWrapper.markSuccess(userService.getMyshow1(userName));
