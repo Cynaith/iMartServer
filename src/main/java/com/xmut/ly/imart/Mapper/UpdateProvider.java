@@ -20,7 +20,7 @@ public class UpdateProvider {
                 if (userimg!=null){
                     SET("imgurl=#{userimg}");
                 }
-                SET("age=#{age}");
+                if (age>0&&age<100) SET("age=#{age}");
                 WHERE("name=#{name}");
             }
         }.toString();
