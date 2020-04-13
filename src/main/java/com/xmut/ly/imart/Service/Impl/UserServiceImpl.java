@@ -157,4 +157,11 @@ public class UserServiceImpl implements UserService {
             userMapping.insertFollow(userid,followid);
         }
     }
+
+    @Override
+    public void update(String usershow, String userimg,String name,int age) {
+        if (userimg.equals("")) userimg=null;
+        if (usershow.equals("")) usershow=null;
+    userMapping.update(usershow, userimg, name,age);
+    }
 }

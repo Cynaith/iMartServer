@@ -4,14 +4,12 @@ import com.xmut.ly.imart.Domain.User;
 import com.xmut.ly.imart.ResultVo.ArticleListVo;
 import com.xmut.ly.imart.ResultVo.FriendListVo;
 import com.xmut.ly.imart.ResultVo.Myshow1Vo;
-import com.xmut.ly.imart.ResultVo.UserInfoVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.Past;
 import java.util.List;
 
 @Mapper
@@ -98,4 +96,7 @@ public interface UserMapping {
 
     @Select("replace into follow(id,userid,followid,status) values ((select i.id from (select id from follow where userId = #{userid} and followId = #{followid}) as i),#{userid},#{followid},case when (select f.status from (select status from follow where userId = #{userid} and followId = #{followid}) as f)='1' then 0 else 1 end )")
     void replaceFollow(@Param("userid") int userid,@Param("followid") int followid);
+
+    @org.apache.ibatis.annotations.UpdateProvider(type=UpdateProvider.class,method = "updateUser")
+    void update(@Param("usershow")String usershow,@Param("userimg") String userimg,@Param("name") String name,@Param("age") int age);
 }

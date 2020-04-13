@@ -24,4 +24,5 @@ public interface UserService {
     List<Myshow1Vo> getMyshow3(String userName);
     String getUserimg(String username);
     void followUser(String followName,String userName);
+    void update(String usershow,String userimg,String name,int age);
 }
