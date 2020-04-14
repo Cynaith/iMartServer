@@ -1,12 +1,14 @@
 package com.xmut.ly.imart.Service;
 
 import com.xmut.ly.imart.Domain.User;
+import com.xmut.ly.imart.RequestVo.RegisterVo;
 import com.xmut.ly.imart.ResultVo.*;
 
 import java.util.List;
 
 
 public interface UserService {
+    void register(RegisterVo registerVo);
     //登陆
     boolean checkCodeByUserphone(String userPhone,int code);
     boolean haveUserByUserphone(String userPhone);

@@ -1,6 +1,7 @@
 package com.xmut.ly.imart.Controller;
 
 import com.xmut.ly.imart.Domain.User;
+import com.xmut.ly.imart.RequestVo.RegisterVo;
 import com.xmut.ly.imart.Service.UserService;
 import com.xmut.ly.imart.Utils.ResponseWrapper;
 import com.xmut.ly.imart.Utils.ReturnCode;
@@ -17,6 +18,11 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @RequestMapping("register")
+    public void register(RegisterVo registerVo){
+        userService.register(registerVo);
+    }
 
     @RequestMapping("/login")
     public ResponseWrapper UserLogin(@RequestParam("userPhone") String userPhone, @RequestParam("userCode") int userCode) {

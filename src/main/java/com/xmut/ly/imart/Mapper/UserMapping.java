@@ -1,6 +1,7 @@
 package com.xmut.ly.imart.Mapper;
 
 import com.xmut.ly.imart.Domain.User;
+import com.xmut.ly.imart.RequestVo.RegisterVo;
 import com.xmut.ly.imart.ResultVo.ArticleListVo;
 import com.xmut.ly.imart.ResultVo.FriendListVo;
 import com.xmut.ly.imart.ResultVo.Myshow1Vo;
@@ -15,6 +16,9 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapping {
+
+    @Insert("insert into user(name,imgurl,phone,password,age,usershow) values(#{username},#{imgurl},#{phone},#{password},#{age},#{usershow})")
+    void register(RegisterVo registerVo);
 
     @Select("select user_id from user where user_phone = #{userPhone}")
     int haveUserByUserphone(String userPhone);
