@@ -1,21 +1,19 @@
 package com.xmut.ly.imart.ResultVo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * @USER: lynn
- * @DATE: 2020/3/17
+ * @DATE: 2020/3/29
  **/
 
 @Data
-public class ArticleMainVo {
-    int userid;
+public class AdminArticleVo {
+    int id;
     String username;
     String title;
-    String userInfo;
     String text;
+    int support;
     String time;
-    String userImg;
-    String img1;
+    int status;
 }

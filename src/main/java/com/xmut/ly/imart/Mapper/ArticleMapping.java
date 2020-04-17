@@ -78,4 +78,5 @@ public interface ArticleMapping {
 
     @Insert("insert into articlemiddle(id,userid,articleId) values(#{id},#{userid},#{articleId})")
     void initMiddle(@Param("id") String id,@Param("userid") int userid,@Param("articleId") int articleId);
+
 }
