@@ -2,6 +2,7 @@ package com.xmut.ly.imart.Service.Impl;
 
 import com.xmut.ly.imart.Domain.User;
 import com.xmut.ly.imart.Mapper.UserMapping;
+import com.xmut.ly.imart.RequestVo.RegisterVo;
 import com.xmut.ly.imart.ResultVo.*;
 import com.xmut.ly.imart.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired(required = false)
     UserMapping userMapping;
+
+    @Override
+    public void register(RegisterVo registerVo) {
+        userMapping.register(registerVo);
+    }
 
     @Override
     public boolean checkCodeByUserphone(String userPhone, int code) {
