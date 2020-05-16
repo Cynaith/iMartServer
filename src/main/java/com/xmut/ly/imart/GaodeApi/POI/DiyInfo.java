@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class DiyInfo {
-    String id;
+    String id ;
     String name;
     String address;
     String location;

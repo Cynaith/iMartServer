@@ -16,6 +16,8 @@ public interface UserService {
     //获取用户信息
     UserInfoVo getUserInfo(String userName);
     List<FriendListVo> getFollow(String userName);
+    List<FriendListVo> getSupport(String userName);
+
     List<FriendListVo> getFollowed(String userName);
     List<ArticleListVo> getArticle(String userName);
     List<ArticleListVo> getCollection(String userName);

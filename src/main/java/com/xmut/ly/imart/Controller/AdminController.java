@@ -2,6 +2,7 @@ package com.xmut.ly.imart.Controller;
 
 import com.xmut.ly.imart.ResultVo.AdminArticleVo;
 import com.xmut.ly.imart.ResultVo.AdminCommentVo;
+import com.xmut.ly.imart.ResultVo.AdminQuestionVo;
 import com.xmut.ly.imart.ResultVo.AdminUserVo;
 import com.xmut.ly.imart.Service.AdminService;
 import com.xmut.ly.imart.Utils.PageWrapperForLayui;
@@ -97,4 +98,24 @@ public class AdminController {
         return PageWrapperForLayui.markSuccess(adminCommentVos.size(), returnlist);
     }
 
+    @RequestMapping("question")
+    public void Question(@RequestParam("username") String username,@RequestParam("message") String message,@RequestParam("title") String title){
+        adminService.Question(username, message,title);
+    }
+    @RequestMapping("getquestion")
+    public PageWrapperForLayui getquestion(@RequestParam(value = "title", defaultValue = "") String title,
+                                           @RequestParam(value = "name", defaultValue = "") String username,
+                                            @RequestParam(value = "page", defaultValue = "1") int page,
+                                           @RequestParam(value = "limit", defaultValue = "10") int size){
+        List<AdminQuestionVo> adminQuestionVos = adminService.getQuestion(title,username);
+        List<AdminQuestionVo> returnlist = new ArrayList<>();
+        final int[] i = {0};
+        adminQuestionVos.forEach(adminQuestionVo -> {
+            if (i[0] > ((page - 1) * size - 1) && i[0] < (page * size)) {
+                returnlist.add(adminQuestionVo);
+            }
+            i[0]++;
+        });
+        return PageWrapperForLayui.markSuccess(adminQuestionVos.size(),returnlist);
+    }
 }

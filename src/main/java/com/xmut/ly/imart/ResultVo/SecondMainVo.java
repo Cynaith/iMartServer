@@ -15,4 +15,5 @@ public class SecondMainVo {
     String name;
     double price;
     int fire;
+    String username;
 }

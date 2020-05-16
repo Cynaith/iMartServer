@@ -22,7 +22,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapping {
 
-    @Select("select id ,img1 as imageUrl,title as name,price,support as fire from article where kind = #{kind} order by support desc")
+    @Select("select a.id ,a.img1 as imageUrl,a.title as name,a.price,a.support as fire ,u.name as username from article as a left join user as u on (a.userid = u.id) where a.kind = #{kind} order by support desc")
     List<SecondMainVo> getSecondMain(@Param("kind") int kind);
 
     @Insert("insert into article(userid,title,text,kind,img1,price,time) values(#{userid},#{title},#{text},#{kind},#{img1},#{price},#{time})")

@@ -52,6 +52,11 @@ public class UserController {
         return ResponseWrapper.markSuccess(userService.getFollow(userName));
     }
 
+    @RequestMapping("support")
+    public ResponseWrapper getSupport(@RequestParam("userName") String userName){
+        return ResponseWrapper.markSuccess(userService.getSupport(userName));
+    }
+
     @RequestMapping("followed")
     public ResponseWrapper getFollowed(@RequestParam("userName") String userName) {
         return ResponseWrapper.markSuccess(userService.getFollowed(userName));
@@ -107,4 +112,5 @@ public class UserController {
                            @RequestParam("age") int age) {
         userService.update(usershow, userimg, username,age);
     }
+
 }

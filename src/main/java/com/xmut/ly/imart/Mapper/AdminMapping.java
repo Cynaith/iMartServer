@@ -3,7 +3,9 @@ package com.xmut.ly.imart.Mapper;
 import com.xmut.ly.imart.Domain.User;
 import com.xmut.ly.imart.ResultVo.AdminArticleVo;
 import com.xmut.ly.imart.ResultVo.AdminCommentVo;
+import com.xmut.ly.imart.ResultVo.AdminQuestionVo;
 import com.xmut.ly.imart.ResultVo.AdminUserVo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -46,4 +48,13 @@ public interface AdminMapping {
     public List<AdminCommentVo> getCommentInfo(@Param("name") String name,
                                                @Param("title") String title,
                                                @Param("text") String text);
+
+    @Insert("insert into question(userid,message,title) values(#{id},#{msg},#{title}) ")
+    public void question(@Param("id") int id,@Param("msg") String msg,@Param("title")String title);
+
+    @Select("select q.id ,q.title,q.message ,u.name ,q.status from " +
+            "question as q left join user as u on q.userid = u.id" +
+            " where q.title like CONCAT(\"%\",#{title},\"%\") " +
+            "and u.name like CONCAT(\"%\",#{name},\"%\")")
+    public List<AdminQuestionVo> getQuestion(@Param("title") String title,@Param("name") String name);
 }

@@ -71,7 +71,16 @@ public class UserServiceImpl implements UserService {
             }
         return friendListVoList;
     }
-
+    @Override
+    public List<FriendListVo> getSupport(String userName) {
+        int id = userMapping.getIdByUsername(userName);
+        List<FriendListVo> friendListVoList = new ArrayList<FriendListVo>();
+        friendListVoList = userMapping.getWhoSupported(id);
+        friendListVoList.forEach(friendListVo -> {
+            friendListVo.setContent("点赞了你发布的\""+friendListVo.getContent()+"\"");
+        });
+        return friendListVoList;
+    }
     @Override
     public List<FriendListVo> getFollowed(String userName) {
         int id = userMapping.getIdByUsername(userName);

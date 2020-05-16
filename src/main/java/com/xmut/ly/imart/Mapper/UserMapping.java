@@ -57,6 +57,11 @@ public interface UserMapping {
     @Select("select name,imgurl as imageUrl,usershow from user where id = #{id}")
     FriendListVo getFriendList(@Param("id") int id);
 
+    @Select("select u.name as name,u.imgurl as imageUrl,a.title as content" +
+            " from articlemiddle as am LEFT JOIN article as a on am.articleId = a.id LEFT JOIN user as u on a.userid = u.id" +
+            " where am.userId = #{id} and am.support = 1")
+    List<FriendListVo> getWhoSupported(@Param("id") int id);//获取谁给userid点赞
+
     @Select("select count(id) from follow where userid = #{loginId} and followId = #{userid} and status = 1")
     int isFollow(@Param("userid") int userid,@Param("loginId") int loginId);
 
