@@ -22,7 +22,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapping {
 
-    @Select("select a.id ,a.img1 as imageUrl,a.title as name,a.price,a.support as fire ,u.name as username from article as a left join user as u on (a.userid = u.id) where a.kind = #{kind} order by support desc")
+    @Select("select a.id ,a.img1 as imageUrl,a.title as name,a.price,a.support as fire ,u.name as username from article as a left join user as u on (a.userid = u.id) where a.kind = #{kind} and status = 1 order by support desc")
     List<SecondMainVo> getSecondMain(@Param("kind") int kind);
 
     @Insert("insert into article(userid,title,text,kind,img1,price,time) values(#{userid},#{title},#{text},#{kind},#{img1},#{price},#{time})")
@@ -49,16 +49,16 @@ public interface ArticleMapping {
     @Select("select count(id) from articlemiddle where articleId = #{articleId} and collection = 1")
     int getCollection(@Param("articleId") int articleId);
 
-    @Select("select id from article")
+    @Select("select id from article  where status = 1")
     List<Integer> getAllArticleId();
 
     @Select("update article set support = (select count(id) from articlemiddle where articleId = #{id}) where id = #{id} ")
     void updateArticleById(@Param("id") int id);
 
-    @Select("select id,articleId,userid,content,createDate from commentdetail where articleId = #{articleId}")
+    @Select("select id,articleId,userid,content,createDate from commentdetail where articleId = #{articleId} and status = 1")
     List<CommentDetailVo> getCommentDetail(@Param("articleId") int articleId);
 
-    @Select("select id,userid,commentId,content,createDate from replydetail where commentId = #{commentId}")
+    @Select("select id,userid,commentId,content,createDate from replydetail where commentId = #{commentId} and status = 1")
     List<ReplyDetailVo> getReplyDetail(@Param("commentId") int commentId);
 
     @Insert("insert into commentdetail(articleId,userid,content,replyTotal,createDate) values(#{articleId},#{userid},#{content},0,#{createDate})")

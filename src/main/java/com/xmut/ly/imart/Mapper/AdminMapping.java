@@ -5,10 +5,7 @@ import com.xmut.ly.imart.ResultVo.AdminArticleVo;
 import com.xmut.ly.imart.ResultVo.AdminCommentVo;
 import com.xmut.ly.imart.ResultVo.AdminQuestionVo;
 import com.xmut.ly.imart.ResultVo.AdminUserVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -57,4 +54,14 @@ public interface AdminMapping {
             " where q.title like CONCAT(\"%\",#{title},\"%\") " +
             "and u.name like CONCAT(\"%\",#{name},\"%\")")
     public List<AdminQuestionVo> getQuestion(@Param("title") String title,@Param("name") String name);
+
+
+    @Update("update article set status =(case when (select status from(select status from article where id = #{id}) as a)='1' then 0 else 1 end ) where id = #{id}")
+    public void changeArticleContent(@Param("id") int id);
+
+    @Update("update commentdetail set status =(case when (select status from(select status from commentdetail where id = #{id}) as a)='1' then 0 else 1 end ) where id = #{id}")
+    public void changeCommentDetail(@Param("id") int id);
+
+    @Update("update question set status =(case when (select status from(select status from question where id = #{id}) as a)='1' then 0 else 1 end ) where id = #{id}")
+    public void changeQuestion(@Param("id") int id);
 }

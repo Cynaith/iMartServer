@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 </head>
 <body>
-<div  style="margin-left: 20px;margin-top: 20px">
+<div style="margin-left: 20px;margin-top: 20px">
     请输入检索条件(模糊查询):&nbsp;&nbsp;&nbsp;
     <div class="layui-inline">
         <input type="text" class="form-control" id="nameinput" placeholder="请输入作者名">
@@ -33,8 +33,11 @@
 </script>
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="switchstatus">
-    <input type="checkbox" name="sex" value="{{d.status}}" lay-skin="switch" lay-text="冻结｜正常"
-           lay-filter="sexDemo" {{d.status=="1"?'checked':'冻结'}}>
+    <div onclick="change({{d.id}})">
+        <input type="checkbox" name="sex" value="{{d.status}}" lay-skin="switch"
+               lay-text="冻结｜正常"
+               lay-filter="sexDemo" {{d.status=="1"?'checked':'冻结'}}>
+    </div>
 </script>
 <script>
     layui.use('table', function () {
@@ -42,8 +45,8 @@
 
         //第一个实例
         table.render({
-            id:'articleinfo'
-            ,elem: '#userinfo'
+            id: 'articleinfo'
+            , elem: '#userinfo'
             , height: 680
             , url: 'http://47.101.171.252:8080/admin/getarticleinfo' //数据接口
             //开发时更改为localhost
@@ -54,9 +57,9 @@
                 {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
                 , {field: 'username', title: '作者', width: 100}
                 , {field: 'title', title: '标题', width: 300}
-                , {field: 'text', title: '内容', width: 150, toolbar: '#text'}
-                , {field: 'support', title: '点赞数', width: 150}
-                , {field: 'time', title: '创作时间', width: 200}
+                , {field: 'text', title: '内容', width: 100, toolbar: '#text'}
+                , {field: 'support', title: '点赞数', width: 100}
+                , {field: 'time', title: '创作时间', width: 150}
                 , {field: 'status', title: '文章状态', width: 150, templet: '#switchstatus', unresize: true}
             ]]
             , parseData: function (res) { //res 即为原始返回的数据
@@ -82,14 +85,14 @@
                     layer.close(index);
                 })
             }
-        });
+        })
 
         // var $ = layui.$, active = {
         //     reload: function () {
         //         var demoReload = $('#demoReload');
         //         //执行重载
         //         table.reload('articleinfo', {
-        //             url: "http://localhost:8080/admin/getarticleinfo"
+        //             url: "http://47.101.171.252:8080/admin/getarticleinfo"
         //             , methods: "post"
         //             , page: {
         //                 curr: 1 //重新从第 1 页开始
@@ -121,12 +124,24 @@
                 'name': name,
                 'title': title
             }
-        },'data')
+        }, 'data')
     })
+
+    function change(id) {
+        $.ajax({
+            url: "http://47.101.171.252:8080/admin/changeArticleContent?id="+id,
+            success: function (data) {
+                alert("修改成功");
+            }
+        })
+    }
 
 </script>
 </body>
 <style>
-    body{margin:0; padding:0;}
+    body {
+        margin: 0;
+        padding: 0;
+    }
 </style>
 </html>

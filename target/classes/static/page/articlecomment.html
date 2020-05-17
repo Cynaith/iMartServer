@@ -32,8 +32,10 @@
 </table>
 <script src="../layui/layui.js"></script>
 <script type="text/html" id="switchstatus">
+    <div onclick="change({{d.id}})">
     <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="冻结｜正常"
            lay-filter="sexDemo" {{d.status=="1"?'checked':'冻结'}}>
+    </div>
 </script>
 <script>
     layui.use('table', function () {
@@ -51,9 +53,9 @@
             , limits: [15, 20, 30]
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
-                , {field: 'articletitle', title: '文章标题', width: 300}
+                , {field: 'articletitle', title: '文章标题', width: 280}
                 , {field: 'commentusername', title: '评论人', width: 100}
-                , {field: 'text', title: '评论内容', width: 450}
+                , {field: 'text', title: '评论内容', width: 400}
                 , {field: 'time', title: '评论时间', width: 150}
                 , {field: 'status', title: '评论状态', width: 200, templet: '#switchstatus', unresize: true}
             ]]
@@ -87,7 +89,14 @@
             }
         },'data')
     })
-
+    function change(id) {
+        $.ajax({
+            url: "http://47.101.171.252:8080/admin/changeCommentDetail?id="+id,
+            success: function (data) {
+                alert("修改成功");
+            }
+        })
+    }
 
 </script>
 </body>

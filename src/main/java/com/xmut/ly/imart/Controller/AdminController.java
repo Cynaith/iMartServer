@@ -1,5 +1,6 @@
 package com.xmut.ly.imart.Controller;
 
+import com.xmut.ly.imart.Mapper.AdminMapping;
 import com.xmut.ly.imart.ResultVo.AdminArticleVo;
 import com.xmut.ly.imart.ResultVo.AdminCommentVo;
 import com.xmut.ly.imart.ResultVo.AdminQuestionVo;
@@ -27,6 +28,8 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+    @Autowired
+    AdminMapping adminMapping;
 
 
 
@@ -118,4 +121,22 @@ public class AdminController {
         });
         return PageWrapperForLayui.markSuccess(adminQuestionVos.size(),returnlist);
     }
+
+    @RequestMapping("changeArticleContent")
+    public String changeArticleContent(@RequestParam("id") int id){
+        adminMapping.changeArticleContent(id);
+        return "OK";
+    }
+
+    @RequestMapping("changeCommentDetail")
+    public  String changeCommentDetail(@RequestParam("id") int id){
+        adminMapping.changeCommentDetail(id);
+        return "OK";
+    }
+    @RequestMapping("changeQuestion")
+    public String changeQuestion(@RequestParam("id") int id){
+        adminMapping.changeQuestion(id);
+        return "OK";
+    }
+
 }

@@ -28,8 +28,10 @@
 
 </table>
 <script type="text/html" id="switchstatus">
+    <div onclick="change({{d.id}})">
     <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="未解决｜解决"
            lay-filter="sexDemo" {{d.status=="1"?'checked':'冻结'}}>
+    </div>
 </script>
 <script src="../layui/layui.js"></script>
 
@@ -82,5 +84,13 @@
             }
         },'data')
     })
+    function change(id) {
+        $.ajax({
+            url: "http://47.101.171.252:8080/admin/changeQuestion?id="+id,
+            success: function (data) {
+                alert("修改成功");
+            }
+        })
+    }
 </script>
 </html>
