@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         List<FriendListVo> friendListVoList = new ArrayList<FriendListVo>();
         friendListVoList = userMapping.getWhoSupported(id);
         friendListVoList.forEach(friendListVo -> {
-            friendListVo.setContent("点赞了你发布的\""+friendListVo.getContent()+"\"");
+            friendListVo.setContent("你点赞了此用户的：\""+friendListVo.getContent()+"\"");
         });
         return friendListVoList;
     }
