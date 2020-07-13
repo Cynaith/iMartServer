@@ -10,6 +10,7 @@ import com.xmut.ly.imart.ResultVo.*;
 import com.xmut.ly.imart.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public boolean addArticle(AddArticleVo addArticleVo) {
         int userid = userMapping.getIdByUsername(addArticleVo.getUsername());
         String title = addArticleVo.getTitle();
@@ -87,6 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public void updateMiddle() {
         List<Integer> list = articleMapping.getAllArticleId();
         list.forEach(integer -> {articleMapping.updateArticleById(integer);});
@@ -145,6 +148,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public ReplyDetailVo postReply(int commentId, String username, String content) {
         int userid = userMapping.getIdByUsername(username);
         Replydetail replydetail = new Replydetail();

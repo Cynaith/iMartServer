@@ -7,6 +7,7 @@ import com.xmut.ly.imart.ResultVo.*;
 import com.xmut.ly.imart.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService {
     UserMapping userMapping;
 
     @Override
+    @Transactional
     public void register(RegisterVo registerVo) {
         userMapping.register(registerVo);
     }
